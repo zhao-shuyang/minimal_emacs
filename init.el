@@ -2,8 +2,10 @@
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
 		    (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
-  ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
+
+  ;;(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t))
+  
+(add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t))
 
 (package-initialize)
 
@@ -11,7 +13,10 @@
 
 (custom-set-variables
  '(inhibit-startup-screen t)
- '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80 84 88 92 96 100 104 108 112 116 120))))
+ '(tab-stop-list (quote (4 8 12 16 20 24 28 32 36 40 44 48 52 56 60 64 68 72 76 80))))
 
+(global-set-key (kbd "C-x C-b") 'ibuffer)
 
-
+(add-hook 'ibuffer-mode-hook (lambda () (ibuffer-auto-mode 1)))
+(ivy-mode 1)
+(tool-bar-mode -1)
