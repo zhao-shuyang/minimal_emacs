@@ -31,7 +31,7 @@
 (set-fringe-mode 10)
 (column-number-mode)
 
-(global-auto-complete-mode t)
+;; (global-auto-complete-mode t)
 ;; (blink-cursor-mode 1)
 
 ;;(size-indication-mode t)
@@ -89,43 +89,22 @@
 
 (use-package flycheck
   :init (global-flycheck-mode t)
-  (flycheck-add-next-checker 'python-flake8 'python-pylint)
-)
+  (flycheck-add-next-checker 'python-flake8 'python-pylint))
+
+(use-package company
+  :init(global-company-mode t)
+  :config (setq company-idle-delay 0))
+
+(use-package company-jedi)
+
+(use-package python-mode
+  :init (add-to-list 'company-backends 'company-jedi))
 
 (use-package magit
   :commands magit-status
 )
 
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/Project")
-    (setq projectile-project-search-path '("~/Project")))
-  (setq projectile-switch-project-action #'projectile-dired))
-
-
 (use-package org)
-
-;;(use-package jedi)
-;;(add-hook 'python-mode-hook 'jedi:setup)
-;;(setq jedi:complete-on-dot t)   
-
-
-
-
-;; Elpy requires flake8
-;;(setq elpy-rpc-python-command "python3")
-;;(use-package elpy
-  ;;:init (elpy-enable)
-  ;;:custom (elpy-rpc-python-command "python3"))
-;;(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
-
-;; For C++
 
 (use-package tex
   :defer t
@@ -137,5 +116,4 @@
 
 
 ;;; init.el ends here
-
 
