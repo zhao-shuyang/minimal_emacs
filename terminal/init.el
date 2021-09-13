@@ -55,13 +55,13 @@
 ;;(use-package doom-themes
   ;;:init (load-theme 'doom-palenight t))
 
-(use-package zenburn-theme
+(use-package hc-zenburn-theme
   :ensure t
   :load-path "themes"
   :init
-  (setq zenburn-theme t)
+  (setq hc-zenburn-theme t)
   :config
-  (load-theme 'zenburn t))
+  (load-theme 'hc-zenburn t))
 
 (use-package all-the-icons :defer 0.5)
 
