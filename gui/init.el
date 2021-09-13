@@ -1,5 +1,8 @@
-(setq user-full-name "Zhao Shuyang")
-(setq user-mail-address "contact@zhaoshuyang.com")
+;;; init.el --- minimal Emacs setup for GUI
+;;; Author: Zhao Shuyang
+;;; Commentary:
+;;; Code:
+
 
 ;; Initialize pakcage ecosystem
 (require 'package)
