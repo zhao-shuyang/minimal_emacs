@@ -89,7 +89,9 @@
   (setq which-key-idle-delay 1))
 
 (use-package flycheck
-  :init (global-flycheck-mode t))
+  :init (global-flycheck-mode t)
+  (flycheck-add-next-checker 'python-flake8 'python-pylint)
+)
 
 (use-package magit
   :commands magit-status
