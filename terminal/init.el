@@ -90,7 +90,6 @@
 
 (use-package flycheck
   :init (global-flycheck-mode t)
-  (flycheck-add-next-checker 'python-flake8 'python-pylint)
 )
 
 (use-package magit
