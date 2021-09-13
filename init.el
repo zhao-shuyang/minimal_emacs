@@ -93,14 +93,6 @@
 (use-package flycheck
   :init (global-flycheck-mode t))
 
-;; Elpy requires flake8
-;;(setq elpy-rpc-python-command "python3")
-(use-package elpy
-  :init (elpy-enable)
-  :custom (elpy-rpc-python-command "python3"))
-
-(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
-
 
 ;;; init.el ends here
 
