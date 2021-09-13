@@ -93,41 +93,9 @@
 (use-package flycheck
   :init (global-flycheck-mode t))
 
-(use-package projectile
-  :diminish projectile-mode
-  :config (projectile-mode)
-  :custom ((projectile-completion-system 'ivy))
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :init
-  ;; NOTE: Set this to the folder where you keep your Git repos!
-  (when (file-directory-p "~/Project")
-    (setq projectile-project-search-path '("~/Project")))
-  (setq projectile-switch-project-action #'projectile-dired))
-
 (use-package magit
   :commands magit-status
 )
-
-
-;; Elpy requires flake8
-;;(setq elpy-rpc-python-command "python3")
-(use-package elpy
-  :init (elpy-enable)
-  :custom (elpy-rpc-python-command "python3"))
-
-(add-hook 'elpy-mode-hook (lambda () (highlight-indentation-mode -1)))
-
-;; For C++
-(use-package yasnippet
-  :config (yas-global-mode 1))
-
-(use-package tex
-  :defer t
-  :ensure auctex
-  :config
-  (setq TeX-auto-save t)
-  (setq TeX-PDF-mode t))
 
 ;;; init.el ends here
 
