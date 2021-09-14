@@ -4,6 +4,10 @@
 ;;; Code:
 
 
+(setq inhibit-startup-screen t
+      initial-major-mode 'org-mode
+      initial-scratch-message "")
+
 ;; Initialize pakcage ecosystem
 (require 'package)
 (setq package-archives '(("melpa" . "https://melpa.org/packages/")
@@ -21,10 +25,6 @@
 (require 'use-package)
 (setq use-package-always-ensure t)
 
-
-;; GUI setup
-(setq inhibit-startup-screen t)
-;; (setq visible-bell t)
 
 (setq frame-title-format "%b")
 (menu-bar-mode -1)
