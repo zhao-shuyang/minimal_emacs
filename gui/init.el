@@ -5,8 +5,8 @@
 
 
 (setq inhibit-startup-screen t
-      initial-major-mode 'org-mode
-      initial-scratch-message "")
+	  initial-major-mode 'org-mode
+	  initial-scratch-message "#+TITLE: Org")
 
 ;; Initialize pakcage ecosystem
 (require 'package)
@@ -14,7 +14,6 @@
                          ("org" . "https://orgmode.org/elpa/")
                          ("elpa" . "https://elpa.gnu.org/packages/")))
 (package-initialize)
-;; This a emacs configuration file following emacs from scratch
 
 (unless package-archive-contents
   (package-refresh-contents))
@@ -31,7 +30,7 @@
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
-(set-fringe-mode 10)
+(set-fringe-mode 12)
 (column-number-mode)
 
 ;; (global-auto-complete-mode t)
@@ -39,9 +38,9 @@
 
 ;;(size-indication-mode t)
 ;;(global-display-line-numbers-mode t)
-(set-face-attribute 'default nil :font "M+ 2m" :height 190)
-(set-face-attribute 'fixed-pitch nil :font "M+ 1mn" :height 190)
-(set-face-attribute 'variable-pitch nil :font "M+ 2m" :height 190)
+;;(set-face-attribute 'default nil :font "M+ 2m" :height 190)
+;;(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 180)
+
 
 
 ;; Key bindings
@@ -63,7 +62,10 @@
   :init
   (setq hc-zenburn-theme t)
   :config
-  (load-theme 'hc-zenburn t))
+  (load-theme 'hc-zenburn t)
+  )
+
+
 
 (use-package all-the-icons :defer 0.5)
 
@@ -91,23 +93,35 @@
   (setq which-key-idle-delay 1))
 
 (use-package flycheck
-  :init (global-flycheck-mode t)
-  (flycheck-add-next-checker 'python-flake8 'python-pylint))
+  :init (global-flycheck-mode t))
 
 (use-package company
-  :init(global-company-mode t)
+  :diminish
+  :init (global-company-mode t)
   :config (setq company-idle-delay 0))
 
 (use-package company-jedi)
 
 (use-package python-mode
-  :init (add-to-list 'company-backends 'company-jedi))
+  :init (add-to-list 'company-backends 'company-jedi)
+  :config
+  (setq python-shell-interpreter "/usr/bin/python3")
+  
+  )
 
 (use-package magit
   :commands magit-status
 )
 
-(use-package org)
+(use-package org
+  :bind ("C-l" . org-latex-preview)
+  :config (setq org-support-shift-select t)
+  (setq org-ellipsis " ▾")
+  (setq org-format-latex-options (plist-put org-format-latex-options :scale 3.0))
+  :custom-face
+  (org-ellipsis ((t (:underline nil :weight normal))))
+  (org-level-1 ((t (:weight bold))))
+  )
 
 (use-package tex
   :defer t
@@ -117,6 +131,17 @@
   (setq TeX-PDF-mode t))
 
 
+(use-package windsize
+  :bind ("C-x w" . windresize))
+
+
+(set-face-attribute 'default nil :font "M PLUS 1 Code" :height 190 :weight 'regular)
+(set-face-attribute 'variable-pitch nil :font "Segoe UI" :height 170 :weight 'regular)
+
+
+;; Below is the face setting command for client mode
+(add-hook 'after-make-frame-functions (lambda(&optional frame) (set-face-attribute 'default nil :font "M PLUS 1 Code" :height 190 :weight 'regular)))
 
 ;;; init.el ends here
+
 
