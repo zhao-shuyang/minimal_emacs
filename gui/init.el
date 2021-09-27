@@ -4,6 +4,8 @@
 ;;; Code:
 
 
+
+
 (setq inhibit-startup-screen t
 	  initial-major-mode 'org-mode
 	  initial-scratch-message "#+TITLE: Org")
@@ -33,14 +35,18 @@
 (set-fringe-mode 12)
 (column-number-mode)
 
-;; (global-auto-complete-mode t)
-;; (blink-cursor-mode 1)
+;; Set font family. The line below is for client mode
+(set-face-attribute 'default nil :font "M PLUS 1 Code" :height 200 :weight 'regular)
+(add-hook 'after-make-frame-functions (lambda(&optional frame) (set-face-attribute 'default nil :font "M PLUS 1 Code" :height 200 :weight 'regular)))
 
-;;(size-indication-mode t)
-;;(global-display-line-numbers-mode t)
-;;(set-face-attribute 'default nil :font "M+ 2m" :height 190)
-;;(set-face-attribute 'default nil :font "DejaVu Sans Mono" :height 180)
 
+;; Keep folder clean, backup and autosave files stored in emacs folder
+(make-directory (expand-file-name "tmp/backups/" user-emacs-directory) t)
+(setq backup-directory-alist `(("." . ,(expand-file-name "tmp/backups/" user-emacs-directory))))
+
+(make-directory (expand-file-name "tmp/auto-saves/" user-emacs-directory) t)
+(setq auto-save-list-file-prefix (expand-file-name "tmp/auto-saves/sessions/" user-emacs-directory)
+      auto-save-file-name-transforms `((".*" ,(expand-file-name "tmp/auto-saves/" user-emacs-directory) t)))
 
 
 ;; Key bindings
@@ -53,8 +59,6 @@
               tab-width 4
               indent-tabs-mode t)
 
-;;(use-package doom-themes
-  ;;:init (load-theme 'doom-palenight t))
 
 (use-package hc-zenburn-theme
   :ensure t
@@ -64,8 +68,6 @@
   :config
   (load-theme 'hc-zenburn t)
   )
-
-
 
 (use-package all-the-icons :defer 0.5)
 
@@ -109,9 +111,9 @@
   
   )
 
-(use-package magit
-  :commands magit-status
-)
+(use-package magit  :commands magit-status)
+
+(use-package eshell-git-prompt :after eshell)
 
 (use-package org
   :bind ("C-l" . org-latex-preview)
@@ -135,13 +137,21 @@
   :bind ("C-x w" . windresize))
 
 
-(set-face-attribute 'default nil :font "M PLUS 1 Code" :height 190 :weight 'regular)
-(set-face-attribute 'variable-pitch nil :font "Segoe UI" :height 170 :weight 'regular)
-
-
-;; Below is the face setting command for client mode
-(add-hook 'after-make-frame-functions (lambda(&optional frame) (set-face-attribute 'default nil :font "M PLUS 1 Code" :height 190 :weight 'regular)))
 
 ;;; init.el ends here
 
 
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(package-selected-packages
+   '(windsize which-key use-package python-mode magit hc-zenburn-theme flycheck doom-modeline counsel company-jedi auctex)))
+(custom-set-faces
+ ;; custom-set-faces was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(org-ellipsis ((t (:underline nil :weight normal))))
+ '(org-level-1 ((t (:weight bold)))))
