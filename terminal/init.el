@@ -1,6 +1,7 @@
 (setq user-full-name "Zhao Shuyang")
 (setq user-mail-address "contact@zhaoshuyang.com")
 
+(setq gnutls-algorithm-priority "NORMAL:-VERS-TLS1.3")
 
 (setq inhibit-startup-screen t
       initial-major-mode 'org-mode
